@@ -58,6 +58,9 @@ class SignInFragment : Fragment() {
                         }
 
                 }
+            }else {
+                Toast.makeText(context,"Tolong isi datanya dengan benar", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
