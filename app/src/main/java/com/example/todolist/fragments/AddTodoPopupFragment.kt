@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import com.example.todolist.R
 import com.example.todolist.databinding.FragmentAddTodoPopupBinding
 import com.google.android.material.textfield.TextInputEditText
 
-class AddTodoPopupFragment : Fragment() {
+class AddTodoPopupFragment : DialogFragment() {
 
     private lateinit var binding: FragmentAddTodoPopupBinding
     private lateinit var listener: DialogNextBtnClickListener
@@ -43,6 +44,10 @@ class AddTodoPopupFragment : Fragment() {
             }else{
                 Toast.makeText(context, "Please type some task", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.todoClose.setOnClickListener {
+            dismiss()
         }
     }
 
