@@ -41,7 +41,7 @@ class SignUpFragment : Fragment() {
 
     private fun registerEvents(){
         binding.textViewSignIn.setOnClickListener {
-            navControl.navigate(R.id.action_signUpFragment_to_signInFragment)
+            navControl.navigate(R.id.action_signInFragment_to_signUpFragment)
         }
         binding.nextBtn.setOnClickListener {
             val email = binding.emailEt.text.toString().trim()
@@ -49,11 +49,11 @@ class SignUpFragment : Fragment() {
             val verifyPass = binding.verifyPassEt.text.toString().trim()
             if(email.isNotEmpty() && pass.isNotEmpty() && verifyPass.isNotEmpty()){
                 if(pass == verifyPass){
-                    auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
+                    auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
                             Toast.makeText(context, "Register Successfully", Toast.LENGTH_SHORT)
                                 .show()
-                            navControl.navigate(R.id.action_signUpFragment_to_homeFragment)
+                            navControl.navigate(R.id.action_signInFragment_to_homeFragment)
                         } else {
                             Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT)
                                 .show()
