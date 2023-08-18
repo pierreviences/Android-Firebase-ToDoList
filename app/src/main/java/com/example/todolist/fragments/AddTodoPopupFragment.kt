@@ -9,15 +9,29 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.todolist.R
 import com.example.todolist.databinding.FragmentAddTodoPopupBinding
+import com.example.todolist.utils.ToDoData
 import com.google.android.material.textfield.TextInputEditText
 
 class AddTodoPopupFragment : DialogFragment() {
 
     private lateinit var binding: FragmentAddTodoPopupBinding
     private lateinit var listener: DialogNextBtnClickListener
+    private lateinit var todoData: ToDoData
     fun setListener(listener: DialogNextBtnClickListener){
         this.listener = listener
     }
+    companion object {
+        const val TAG = "AddTodoPopUpFragment"
+        @JvmStatic
+        fun newInstance(taskId: String, task: String) =
+            AddTodoPopupFragment().apply {
+                arguments = Bundle().apply {
+                    putString("taskId", taskId)
+                    putString("task", task)
+                }
+            }
+    }
+
 
 
     override fun onCreateView(
@@ -32,7 +46,11 @@ class AddTodoPopupFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (arguments != null){
 
+            todoData = ToDoData(arguments?.getString("taskId").toString() ,arguments?.getString("task").toString())
+            binding.todoEt.setText(todoData?.task)
+        }
         registerEvents()
     }
 
@@ -40,7 +58,12 @@ class AddTodoPopupFragment : DialogFragment() {
         binding.todoNextBtn.setOnClickListener {
             val todotask = binding.todoEt.text.toString()
             if(todotask.isNotEmpty()){
-                listener.onSaveTask(todotask, binding.todoEt)
+                if (todoData == null){
+                    listener?.onSaveTask(todotask , binding.todoEt)
+                }else{
+                    todoData?.task = todotask
+                    listener?.onUpdateTask(todoData!!, binding.todoEt)
+                }
             }else{
                 Toast.makeText(context, "Please type some task", Toast.LENGTH_SHORT).show()
             }
@@ -53,6 +76,7 @@ class AddTodoPopupFragment : DialogFragment() {
 
     interface DialogNextBtnClickListener{
         fun onSaveTask(todo: String, todoEt: TextInputEditText)
+        fun onUpdateTask(todoData: ToDoData, todoEt: TextInputEditText)
     }
 
 
