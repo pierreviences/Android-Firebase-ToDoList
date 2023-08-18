@@ -40,18 +40,18 @@ class SignInFragment : Fragment() {
 
     private fun registerEvents(){
         binding.textViewSignUp.setOnClickListener {
-            navControl.navigate(R.id.action_signUpFragment_to_signInFragment)
+            navControl.navigate(R.id.action_signInFragment_to_signUpFragment)
         }
         binding.nextBtn.setOnClickListener {
             val email = binding.emailEt.text.toString().trim()
             val pass = binding.passEt.text.toString().trim()
             if(email.isNotEmpty() && pass.isNotEmpty()){
 
-                    auth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
+                    auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
                             Toast.makeText(context, "Login Successfully", Toast.LENGTH_SHORT)
                                 .show()
-                            navControl.navigate(R.id.action_signUpFragment_to_homeFragment)
+                            navControl.navigate(R.id.action_signInFragment_to_homeFragment)
                         } else {
                             Toast.makeText(context, it.exception?.message, Toast.LENGTH_SHORT)
                                 .show()

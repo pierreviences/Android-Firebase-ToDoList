@@ -32,9 +32,9 @@ class SplashFragment : Fragment() {
         navController = Navigation.findNavController(view)
         Handler(Looper.myLooper()!!).postDelayed(Runnable {
             if(auth.currentUser != null){
-                navController.navigate(R.id.action_signUpFragment_to_homeFragment)
+                navController.navigate(R.id.action_splashFragment_to_homeFragment)
             }else{
-                navController.navigate(R.id.action_signUpFragment_to_signInFragment)
+                navController.navigate(R.id.action_splashFragment_to_signInFragment)
             }
         }, 2000)
     }
