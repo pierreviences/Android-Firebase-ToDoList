@@ -21,7 +21,7 @@ class HomeFragment : Fragment() {
     private lateinit var databaseRef: DatabaseReference
     private lateinit var navController: NavController
     private lateinit var binding: FragmentHomeBinding
-
+    private lateinit var popupFragment: AddTodoPopupFragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
